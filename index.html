@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title >Hentai Dress-Up Game</title>
+  <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
+</head>
+<body>
+
+
+
+  <div class="Title">
+    <h1 onclick="HTitle()">Start Game</h1>
+</div>
+
+<center style="visibility: hidden;" id="Hide">
+  <h1 style="color: #fff;text-transform: uppercase;font-family: sans-serif;">
+    selection of characters
+  </h1>
+</center>
+
+<div class="pro-main">
+
+<main class="main-coll">
+  <span onclick="Dclose()">x</span>
+<span style="width: 50%;height: 70%;position: absolute;right: 0;top: 30%;" onclick="Next()"></span>
+<span style="width: 50%;height: 70%;position: absolute;left: 0;;top: 30%;" onclick="Prev()"></span>
+
+
+<img src="src/(6).jpg" class="Ipro">
+
+<div>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num}).jpg`">Normal</button>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 1}).jpg`">Topless</button>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 2}).jpg`">Bikini</button>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 3}).jpg`">Boobs</button>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 4}).jpg`">Naked</button>
+  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 5}).jpg`">Scene</button>
+</div>
+</main>
+
+</div>
+
+  <div class="coll">
+  </div> 
+
+<script>
+  let coll=document.querySelector('.coll')
+let num=0
+
+
+  for (let index = 1; index <= 170; index++) {
+    
+    let divimgs=document.createElement('div')
+    coll.appendChild(divimgs)
+     divimgs.innerHTML=`
+     <img src="src/(${index * 6}).jpg" alt="src/(${index * 6}).jpg" id="${index * 6}" onclick="funimg(this.id)">
+     `
+  }
+ 
+function  funimg(ids){
+  num = parseInt(ids)
+  document.querySelector('.Ipro').src=`src/(${num}).jpg`
+document.querySelector('.pro-main').style.display ='flex'
+document.querySelector('.coll').style.display ='none'
+
+
+}
+function Dclose(){
+  document.querySelector('.pro-main').style.display ='none'
+document.querySelector('.coll').style.display ='flex'
+}
+
+function Next(){
+  if(num == 1020){
+   num=6
+  }else{
+    num = num+6
+  }
+
+document.querySelector('.Ipro').src=`src/(${num}).jpg`
+
+}
+function Prev(){
+  if(num == 6){
+   num = 1020
+  }else{
+    num = num-6
+  }
+document.querySelector('.Ipro').src=`src/(${num}).jpg`
+
+}
+
+function HTitle(){
+  document.querySelector('.pro-main').style.display ='none'
+document.querySelector('.coll').style.display ='flex'
+document.querySelector('.Title').style.display ='none'
+document.querySelector('#Hide').style.visibility = 'visible';
+}
+</script>
+<style>
+  body{
+    background-color: black;
+  }
+  .Title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        background: url(back.png);
+        background-repeat: no-repeat;
+        background-size:contain;
+        top: 0%;
+        bottom: 0%;
+        right: 0%; 
+        left: 0%;
+    }
+    .Title h1{
+        display:flex;
+        background: none;
+        color: #fff;
+        width: 200px;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 20px;
+        border: 1px solid #fff;
+        font-family: sans-serif;
+    }
+    .Title h1:hover{
+background-color: rgb(0, 255, 0);
+    }
+  .coll{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .coll img{
+  height: 200px;
+  
+  padding: 5px;
+  }
+  .pro-main{
+    display: none;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+     position: fixed;
+     background-color: black;
+     right: 0;
+     left: 0;
+     top: 0;
+     bottom: 0;
+  }
+  .pro-main span{
+    color: #fff;
+    font-size: 30px;
+    font-family: sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+  }
+  .pro-main span:hover{
+    color: rgb(0, 255, 0);
+
+  }
+  .main-coll{
+    background-color: black;
+    width: 99%;
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    width: 500px;
+    position: relative;
+  }
+  .main-coll img{
+  height: 100%;
+  }
+  .main-coll div {
+    display: flex;
+    flex-direction: column;
+    right: 1px;
+    top: 200px;
+  position: absolute;
+  }
+  .main-coll div button{
+   margin: 6px;
+  appearance: none;
+  padding: 5px;
+  border: 1px solid #fff;
+  background:none ;
+  color: #fff;
+  border-radius: 10px;
+  }
+  .main-coll div button:hover{
+    background-color: rgb(0, 255, 0);
+  }
+  @media (max-width:500px) {
+  .pro-main span{
+    color: #fff;
+    font-size: 30px;
+    font-family: sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+  }
+  .main-coll{
+    background-color: black;
+    width: 99%;
+   height: auto;
+  }
+  .main-coll img{
+  width: 100%;
+  height: auto;
+  }
+  .main-coll div {
+    top: 150px;
+  }
+  }
+</style>
+</body>
+</html>
