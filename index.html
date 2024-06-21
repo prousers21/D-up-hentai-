@@ -50,7 +50,7 @@
 let num=0
 
 
-  for (let index = 1; index <= 170; index++) {
+  for (let index = 1; index <= 188; index++) {
     
     let divimgs=document.createElement('div')
     coll.appendChild(divimgs)
@@ -73,7 +73,7 @@ document.querySelector('.coll').style.display ='flex'
 }
 
 function Next(){
-  if(num == 1020){
+  if(num == 1128){
    num=6
   }else{
     num = num+6
@@ -84,7 +84,7 @@ document.querySelector('.Ipro').src=`src/(${num}).jpg`
 }
 function Prev(){
   if(num == 6){
-   num = 1020
+   num = 1128
   }else{
     num = num-6
   }
