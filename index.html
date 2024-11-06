@@ -5,38 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title >Hentai Dress-Up Game</title>
   <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
+  <style>
+    /* General Styling */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark and Light Mode Styles */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    body.light-mode {
+      background-color: #f4f4f4;
+      color: #000;
+    }
+
+    /* Mode Toggle Button */
+    .mode-toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid #fff;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      z-index: 999;
+      transition: background-color 0.3s;
+    }
+
+    .mode-toggle-btn:hover {
+      background-color: rgba(0, 255, 0, 0.8);
+    }
+
+    /* Image Gallery */
+    .coll {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: opacity 0.5s ease;
+    }
+
+    .coll img {
+      height: 200px;
+      width: auto;
+      transition: transform 0.3s ease, opacity 0.3s;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    .coll img:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    /* Main Image Preview */
+    .pro-main {
+      display: none;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.7);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .main-coll {
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 98%;
+      display: flex;
+      justify-content: center;
+      height: 700px;
+      position: relative;
+      border-radius: 20px;
+    }
+
+    .main-coll img {
+      height: 100%;
+      max-width: 100%;
+    }
+
+    /* Navigation Buttons for Image */
+    .main-coll div {
+      display: flex;
+      flex-direction: column;
+      right: 1px;
+      top: 200px;
+      position: absolute;
+    }
+
+    .main-coll div button {
+      margin: 6px;
+      padding: 10px 15px;
+      border: 1px solid #fff;
+      background: none;
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .main-coll div button:hover {
+      background-color: rgb(0, 255, 0);
+    }
+
+    /* Thumbnail Grid */
+    .thumbnails {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .thumbnails img {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .thumbnails img:hover {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
-<body>
+<bodyclass="dark-mode">
+
+ <button class="mode-toggle-btn" onclick="toggleDarkMode()">Switch to Light Mode</button>
 
 
+ <div class="pro-main">
+    <main class="main-coll">
+      <span onclick="Dclose()" aria-label="Close Image Preview" style="color: red; font-size: 40px; cursor: pointer;">x</span>
+      <span style="width: 50%; height: 70%; position: absolute; right: 0; top: 30%;" onclick="Next()" aria-label="Next Image"></span>
+      <span style="width: 50%; height: 70%; position: absolute; left: 0; top: 30%;" onclick="Prev()" aria-label="Previous Image"></span>
 
-  <div class="Title">
-    <h1 onclick="HTitle()">Start Game</h1>
-</div>
+      <img src="src/(6).png" class="Ipro" aria-label="Image Preview" loading="lazy">
 
-<center style="visibility: hidden;" id="Hide">
-  <h1 style="color: #fff;text-transform: uppercase;font-family: sans-serif;">
-    selection of characters
-  </h1>
-</center>
-
-<div class="pro-main">
-
-<main class="main-coll">
-  <span onclick="Dclose()">x</span>
-<span style="width: 50%;height: 70%;position: absolute;right: 0;top: 30%;" onclick="Next()"></span>
-<span style="width: 50%;height: 70%;position: absolute;left: 0;;top: 30%;" onclick="Prev()"></span>
-
-
-<img src="src/(6).jpg" class="Ipro">
 
 <div>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num}).jpg`">Normal</button>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 1}).jpg`">Topless</button>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 2}).jpg`">Bikini</button>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 3}).jpg`">Boobs</button>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 4}).jpg`">Naked</button>
-  <button onclick="document.querySelector('.Ipro').src=`src/(${num + 5}).jpg`">Scene</button>
+    <button onclick="Changeimg(0)" aria-label="Select Image 1">Normal</button>
+        <button onclick="Changeimg(1)" aria-label="Select Image 2">Topless</button>
+        <button onclick="Changeimg(2)" aria-label="Select Image 3">Bikini</button>
+        <button onclick="Changeimg(3)" aria-label="Select Image 4">Boobs</button>
+        <button onclick="Changeimg(4)" aria-label="Select Image 5">Naked</button>
+        <button onclick="Changeimg(5)" aria-label="Select Image 6">Scene</button>
 </div>
 </main>
 
@@ -45,178 +174,112 @@
   <div class="coll">
   </div> 
 
-<script>
-  let coll=document.querySelector('.coll')
-let num=0
+let coll = document.querySelector('.coll');
+    let num = 1;
+    let imgn = 6;
+    let imagesToLoad = 20;
 
-
-  for (let index = 1; index <= 188; index++) {
-    
-    let divimgs=document.createElement('div')
-    coll.appendChild(divimgs)
-     divimgs.innerHTML=`
-     <img src="src/(${index * 6}).jpg" alt="src/(${index * 6}).jpg" id="${index * 6}" onclick="funimg(this.id)">
-     `
-  }
- 
-function  funimg(ids){
-  num = parseInt(ids)
-  document.querySelector('.Ipro').src=`src/(${num}).jpg`
-document.querySelector('.pro-main').style.display ='flex'
-document.querySelector('.coll').style.display ='none'
-
-
-}
-function Dclose(){
-  document.querySelector('.pro-main').style.display ='none'
-document.querySelector('.coll').style.display ='flex'
-}
-
-function Next(){
-  if(num == 1128){
-   num=6
-  }else{
-    num = num+6
-  }
-
-document.querySelector('.Ipro').src=`src/(${num}).jpg`
-
-}
-function Prev(){
-  if(num == 6){
-   num = 1128
-  }else{
-    num = num-6
-  }
-document.querySelector('.Ipro').src=`src/(${num}).jpg`
-
-}
-
-function HTitle(){
-  document.querySelector('.pro-main').style.display ='none'
-document.querySelector('.coll').style.display ='flex'
-document.querySelector('.Title').style.display ='none'
-document.querySelector('#Hide').style.visibility = 'visible';
-}
-</script>
-<style>
-  body{
-    background-color: black;
-  }
-  .Title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        background: url(back.png);
-        background-repeat: no-repeat;
-        background-size:contain;
-        top: 0%;
-        bottom: 0%;
-        right: 0%; 
-        left: 0%;
+    // Efficient image loading with lazy loading technique
+    function loadImages() {
+      for (let index = num; index < num + imagesToLoad; index++) {
+        let divimgs = document.createElement('div');
+        coll.appendChild(divimgs);
+        divimgs.innerHTML = `
+          <img src="src/(${index * imgn}).jpg" alt="src/(${index * imgn}).jpg" id="${index * imgn}" onclick="funimg(this.id)" loading="lazy" aria-label="Click to view image ${index}">
+        `;
+      }
+      num += imagesToLoad;
     }
-    .Title h1{
-        display:flex;
-        background: none;
-        color: #fff;
-        width: 200px;
-        justify-content: center;
-        padding: 8px;
-        border-radius: 20px;
-        border: 1px solid #fff;
-        font-family: sans-serif;
-    }
-    .Title h1:hover{
-background-color: rgb(0, 255, 0);
-    }
-  .coll{
-    display: none;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .coll img{
-  height: 200px;
-  
-  padding: 5px;
-  }
-  .pro-main{
-    display: none;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-     position: fixed;
-     background-color: black;
-     right: 0;
-     left: 0;
-     top: 0;
-     bottom: 0;
-  }
-  .pro-main span{
-    color: #fff;
-    font-size: 30px;
-    font-family: sans-serif;
-    position: absolute;
-    top: 10px;
-    right: 30px;
-  }
-  .pro-main span:hover{
-    color: rgb(0, 255, 0);
 
-  }
-  .main-coll{
-    background-color: black;
-    width: 99%;
-    display: flex;
-    justify-content: center;
-    height: 700px;
-    width: 500px;
-    position: relative;
-  }
-  .main-coll img{
-  height: 100%;
-  }
-  .main-coll div {
-    display: flex;
-    flex-direction: column;
-    right: 1px;
-    top: 200px;
-  position: absolute;
-  }
-  .main-coll div button{
-   margin: 6px;
-  appearance: none;
-  padding: 5px;
-  border: 1px solid #fff;
-  background:none ;
-  color: #fff;
-  border-radius: 10px;
-  }
-  .main-coll div button:hover{
-    background-color: rgb(0, 255, 0);
-  }
-  @media (max-width:500px) {
-  .pro-main span{
-    color: #fff;
-    font-size: 30px;
-    font-family: sans-serif;
-    position: absolute;
-    top: 10px;
-    right: 30px;
-  }
-  .main-coll{
-    background-color: black;
-    width: 99%;
-   height: auto;
-  }
-  .main-coll img{
-  width: 100%;
-  height: auto;
-  }
-  .main-coll div {
-    top: 150px;
-  }
-  }
-</style>
+    loadImages();
+
+    // Lazy loading images when near the bottom of the page
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 200) {
+        loadImages();
+      }
+    });
+
+    function funimg(ids) {
+      num = parseInt(ids);
+      document.querySelector('.Ipro').src = `src/(${num}).jpg`;
+      document.querySelector('.Ipro').id = `${num}`;
+
+      document.querySelector('.pro-main').style.display = 'flex';
+      document.querySelector('.coll').style.display = 'none';
+    }
+
+    function Dclose() {
+      document.querySelector('.pro-main').style.display = 'none';
+      document.querySelector('.coll').style.display = 'flex';
+    }
+
+    function Next() {
+      if (num == 1134) {
+        num = imgn;
+      } else {
+        num = num + imgn;
+      }
+      document.querySelector('.Ipro').src = `src/(${num}).jpg`;
+      document.querySelector('.Ipro').id = `${num}`;
+
+    }
+
+    function Prev() {
+      if (num == imgn) {
+        num = 1134;
+      } else {
+        num = num - imgn;
+      }
+      document.querySelector('.Ipro').src = `src/(${num}).jpg`;
+      document.querySelector('.Ipro').id = `${num}`;
+
+    }
+
+    function Changeimg(ups) {
+        let up= parseInt(document.querySelector('.Ipro').id );
+        up= up +ups
+        document.querySelector('.Ipro').src = `src/(${up }).jpg`;        
+
+    }
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      const btn = document.querySelector('.mode-toggle-btn');
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        btn.innerText = 'Switch to Dark Mode';
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        btn.innerText = 'Switch to Light Mode';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.classList.add(savedTheme + '-mode');
+        const btn = document.querySelector('.mode-toggle-btn');
+        if (savedTheme === 'light') {
+          btn.innerText = 'Switch to Dark Mode';
+        }
+      }
+    });
+
+    // Enable Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        Next();
+      } else if (e.key === 'ArrowLeft') {
+        Prev();
+      } else if (e.key === 'Escape') {
+        Dclose();
+      }
+    });
+  </script>
 </body>
 </html>
