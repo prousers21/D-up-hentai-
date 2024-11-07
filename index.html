@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Verification</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+
+    /* Verification box */
+    .verification-box {
+      background: #222;
+      padding: 40px 30px;
+      text-align: center;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      transform: scale(0.8);
+      animation: fadeIn 0.6s forwards;
+    }
+
+    /* Heading styling */
+    .verification-box h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #f1c40f;
+    }
+
+    .verification-box p {
+      font-size: 16px;
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+
+    /* Button styling */
+    .verification-box .button-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .verification-box button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .verification-box .confirm-btn {
+      background-color: #28a745;
+    }
+
+    .verification-box .deny-btn {
+      background-color: #e74c3c;
+    }
+
+    .verification-box button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Responsive styling */
+    @media (max-width: 500px) {
+      .verification-box {
+        width: 90%;
+        padding: 30px 20px;
+      }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay for Age Verification -->
+  <div id="ageOverlay" class="overlay">
+    <div class="verification-box">
+      <h1>Age Verification</h1>
+      <p>This site contains content that may not be suitable for individuals under 18. Please confirm your age to proceed.</p>
+      <div class="button-container">
+        <button class="confirm-btn" onclick="confirmAge()">I am 18+</button>
+        <button class="deny-btn" onclick="denyAge()">I am under 18</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check if user has already confirmed age within the last 24 hours
+    document.addEventListener('DOMContentLoaded', () => {
+      const lastVerifiedTime = localStorage.getItem('lastVerifiedTime');
+      const currentTime = new Date().getTime();
+
+      // 86400000 milliseconds in a day (24 hours)
+      const oneDayInMillis = 12 * 60 * 60 * 1000;
+
+      if (lastVerifiedTime && (currentTime - lastVerifiedTime) < oneDayInMillis) {
+        // Hide age verification overlay if verified within 24 hours
+        document.getElementById('ageOverlay').style.display = 'none';
+      }
+    });
+
+    // Confirm age and store the timestamp in localStorage
+    function confirmAge() {
+      const currentTime = new Date().getTime();
+      localStorage.setItem('lastVerifiedTime', currentTime);
+      document.getElementById('ageOverlay').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('ageOverlay').style.display = 'none';
+        window.location.href = 'main.html';
+      }, 300); // Delay for smooth transition
+    }
+
+    // Deny access and redirect
+    function denyAge() {
+      alert("You must be over 18 to enter this site.");
+      window.location.href = 'https://www.google.com';
+    }
+  </script>
+</body>
+</html>
