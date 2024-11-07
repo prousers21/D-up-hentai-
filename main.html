@@ -63,6 +63,8 @@
       transition: transform 0.3s ease, opacity 0.3s;
       opacity: 0.8;
       cursor: pointer;
+      border-radius: 20px;
+
     }
 
     .coll img:hover {
@@ -73,21 +75,22 @@
     /* Main Image Preview */
     .pro-main {
       display: none;
-      width: 100%;
+      overflow: auto;
+      width: 100%; 
+      height: 100%;
+      z-index: 1000;
       justify-content: center;
       align-items: center;
       position: fixed;
       background-color: rgba(0, 0, 0, 0.7);
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
       transition: opacity 0.5s ease;
     }
 
     .main-coll {
       background-color: rgba(0, 0, 0, 0.5);
-      width: 98%;
+      width: 80%;
       display: flex;
       justify-content: center;
       height: 700px;
@@ -98,6 +101,7 @@
     .main-coll img {
       height: 100%;
       max-width: 100%;
+    border-radius: 20px;
     }
 
     /* Navigation Buttons for Image */
@@ -143,6 +147,23 @@
     .thumbnails img:hover {
       transform: scale(1.1);
     }
+    @media (max-width:800px) {
+        .main-coll {
+            width: 98%;
+        }
+    }
+    @media (max-width:500px) {
+    .main-coll {
+      height: 600px;
+    }
+    }
+    @media (max-width:400px) {
+    .main-coll {
+      height: 500px;
+    }
+    }
+   
+  
   </style>
 </head>
 <bodyclass="dark-mode">
@@ -152,7 +173,7 @@
 
  <div class="pro-main">
     <main class="main-coll">
-      <span onclick="Dclose()" aria-label="Close Image Preview" style="color: red; font-size: 40px; cursor: pointer;">x</span>
+      <span onclick="Dclose()" aria-label="Close Image Preview" style="color: red; font-size: 40px; cursor: pointer;position: absolute;top: 20px;right: 20px;">x</span>
       <span style="width: 50%; height: 70%; position: absolute; right: 0; top: 30%;" onclick="Next()" aria-label="Next Image"></span>
       <span style="width: 50%; height: 70%; position: absolute; left: 0; top: 30%;" onclick="Prev()" aria-label="Previous Image"></span>
 
@@ -179,6 +200,9 @@ let coll = document.querySelector('.coll');
     let num = 1;
     let imgn = 6;
     let imagesToLoad = 20;
+    let guess = 0
+    let guess1 = 0
+
 
     // Efficient image loading with lazy loading technique
     function loadImages() {
@@ -187,9 +211,11 @@ let coll = document.querySelector('.coll');
         coll.appendChild(divimgs);
         divimgs.innerHTML = `
           <img src="src/(${index * imgn}).jpg" alt="src/(${index * imgn}).jpg" id="${index * imgn}" onclick="funimg(this.id)" loading="lazy" aria-label="Click to view image ${index}">
-        `;
+        `;    
       }
       num += imagesToLoad;
+      guess1 = num
+
     }
 
     loadImages();
@@ -197,8 +223,13 @@ let coll = document.querySelector('.coll');
     // Lazy loading images when near the bottom of the page
     window.addEventListener('scroll', () => {
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 200) {
+    if(num < 188){
         loadImages();
-      }
+
+    }
+    
+      
+    }
     });
 
     function funimg(ids) {
@@ -207,12 +238,12 @@ let coll = document.querySelector('.coll');
       document.querySelector('.Ipro').id = `${num}`;
 
       document.querySelector('.pro-main').style.display = 'flex';
-      document.querySelector('.coll').style.display = 'none';
+      //document.querySelector('.coll').style.display = 'none';
     }
 
     function Dclose() {
       document.querySelector('.pro-main').style.display = 'none';
-      document.querySelector('.coll').style.display = 'flex';
+     // document.querySelector('.coll').style.display = 'flex';
     }
 
     function Next() {
@@ -223,7 +254,7 @@ let coll = document.querySelector('.coll');
       }
       document.querySelector('.Ipro').src = `src/(${num}).jpg`;
       document.querySelector('.Ipro').id = `${num}`;
-
+      guess = 0
     }
 
     function Prev() {
@@ -234,7 +265,7 @@ let coll = document.querySelector('.coll');
       }
       document.querySelector('.Ipro').src = `src/(${num}).jpg`;
       document.querySelector('.Ipro').id = `${num}`;
-
+      guess = 0
     }
 
     function Changeimg(ups) {
@@ -270,7 +301,6 @@ let coll = document.querySelector('.coll');
         }
       }
     });
-
     // Enable Keyboard Navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
@@ -279,7 +309,15 @@ let coll = document.querySelector('.coll');
         Prev();
       } else if (e.key === 'Escape') {
         Dclose();
+      } else if (e.key === 'ArrowDown' || e.key === 'p' || e.key === '+') {
+        guess = guess + 1
+        if(guess == 6){
+            guess = 0
+        }
+        Changeimg(guess)
+
       }
+
     });
   </script>
 </body>
